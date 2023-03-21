@@ -42,9 +42,10 @@ public class mainGame {
 				this.tetris.setOff();
 				this.tetris = new Tetris(Name);
 			}
-			
-			
-			
+			else
+			{
+				this.createGame("T", Name);
+			}
 			
 		}
 		
