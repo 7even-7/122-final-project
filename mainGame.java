@@ -19,24 +19,36 @@ public class mainGame {
 		}
 	}
 	public void resetGame(String newGame, String Name) {
-		if(newGame.equals("NB")&& this.bj != null) {
-			
-			this.bj.dispose();
-			this.bj = new BejewlGame(Name);
+		if(newGame.equals("NB")) {
+			if (this.tetris != null) {
+				this.tetris.dispose();
+			}
+			if (this.bj != null) {
+				this.bj.dispose();
+				this.bj = new BejewlGame(Name);
+			}
+			else
+			{
+				this.createGame("B", Name);
+			}
 			//this.bj.resetBoard(Name);
 		}
-		else
-		{
-			this.createGame(newGame, Name);
-		}
+		
 		if (newGame.equals("NT")) {
-			this.tetris.dispose();
-			this.tetris.newGame(Name);
+			if (this.bj != null) {
+				this.bj.dispose();
+			}
+			if (this.tetris != null) {
+				this.tetris.newGame(Name);
+			}
+			
+			
+			else {
+				this.createGame("T", Name);
+			}
 			
 		}
-		else {
-			this.createGame(newGame, Name);
-		}
+		
 	}
 	public static void main(String arvg[]) {
 		//GUI approach
@@ -59,13 +71,10 @@ public class mainGame {
 				System.out.println("Enter NewGame to select a new Game");
 				Running = true;
 				
-
-				
-				
-				
 			}
 			String command = scan.nextLine();
 			if (command.equals("NewGame")) {
+				//System.out.println(Running);
 				System.out.println("Enter your new player name");
 				String newPlayer = scan.nextLine();
 				
