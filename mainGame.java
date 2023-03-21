@@ -39,13 +39,12 @@ public class mainGame {
 				this.bj.dispose();
 			}
 			if (this.tetris != null) {
-				this.tetris.newGame(Name);
+				this.tetris.setOff();
+				this.tetris = new Tetris(Name);
 			}
 			
 			
-			else {
-				this.createGame("T", Name);
-			}
+			
 			
 		}
 		
