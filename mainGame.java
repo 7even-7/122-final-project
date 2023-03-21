@@ -41,6 +41,7 @@ public class mainGame {
 			if (this.tetris != null) {
 				this.tetris.setOff();
 				this.tetris = new Tetris(Name);
+				tetris.game_begin();
 			}
 			else
 			{
