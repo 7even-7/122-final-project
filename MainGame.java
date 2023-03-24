@@ -83,39 +83,62 @@ public class MainGame {
         while (true) {
 
             if (!running) {
-                System.out.println("Enter your name");
+                System.out.print("Enter your player name:\n>>> ");
 
                 String playerName = scan.nextLine();
 
-                System.out.println("Select from the following games: \n1. Tetris -> Enter T\n2. Bejewel -> Enter B");
-                String game = scan.next();
+                System.out.print("\nSelect from the following games: \n1. Tetris -> Enter T\n2. Bejewel -> Enter B\n>>> ");
+                String game = handleInvalidInputs(new String[]{"B", "T"}, scan);
+
+                System.out.println("\n...Waiting for game to end. Please wait.");
                 mainGame.createGame(game, playerName);
-                System.out.println("Enter NewGame to select a new Game");
-                System.out.println("Enter EndGame to end the Game");
+
+                System.out.print("\nEnter \"NewGame\" to start a game with another Player, \n or enter \"EndGame\" to end the game and display the winner: \n>>> ");
 
                 running = true;
             }
 
-            String command = scan.nextLine();
+            String command = handleInvalidInputs(new String[]{"EndGame", "NewGame"}, scan);
 
             if (command.equals("NewGame")) {
                 mainGame.updateWinner();
-                System.out.println("Enter your new player name");
+
+                System.out.print("\nEnter the name for a new player: \n>>> ");
                 String newPlayer = scan.nextLine();
 
-                System.out.println("Select from the following games: \n1. Tetris -> Enter NT\n2. Bejewel -> Enter NB");
-                String newGame = scan.next();
 
+                System.out.print("\nSelect from the following games: \n1. Tetris -> Enter NT\n2. Bejewel -> Enter NB\n>>> ");
+                String newGame = handleInvalidInputs(new String[]{"NT", "NB"}, scan);
+
+                System.out.println("\n...Waiting for game to end. Please wait.");
                 mainGame.resetGame(newGame, newPlayer);
-                System.out.println("Enter NewGame to select a new Game");
-                System.out.println("Enter EndGame to end the Game");
+
+                System.out.print("\nEnter \"NewGame\" to start a game with another Player, \n or enter \"EndGame\" to end the game and display the winner: \n>>> ");
             }
 
             if (command.equals("EndGame")) {
                 mainGame.updateWinner();
+
+                System.out.println();
                 mainGame.printWinner();
                 System.exit(0);
             }
         }
     }
+
+    private static String handleInvalidInputs(String[] validInputs, Scanner scanner) {
+        while (true) {
+            String input = scanner.nextLine();
+
+            for (String validInput : validInputs) {
+                if (input.equals(validInput)) {
+                    return input;
+                }
+            }
+
+            System.out.print("...Invalid input. Please try again. >>> ");
+        }
+    }
 }
+
+
