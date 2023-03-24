@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
-public class mainGame {
+public class MainGame {
     public Tetris tetris;
     public BejewlGame bj;
     public Winner bjPlayers;
     public Winner tetrisPlayers;
 
-    public mainGame() {
+    public MainGame() {
         this.bjPlayers = new Winner();
         this.tetrisPlayers = new Winner();
     }
@@ -14,13 +14,10 @@ public class mainGame {
     public void createGame(String game, String playerName) {
         if (game.equals("T")) {
             tetris = new Tetris(playerName);
-            //System.out.println("Enter NewGame to select a new Game");
             tetris.updateBoard();
 
         } else if (game.equals("B")) {
-            //bj.setName(playerName);
             bj = new BejewlGame(playerName);
-
         }
     }
 
@@ -35,7 +32,6 @@ public class mainGame {
             } else {
                 this.createGame("B", Name);
             }
-            //this.bj.resetBoard(Name);
         }
 
         if (newGame.equals("NT")) {
@@ -82,7 +78,7 @@ public class mainGame {
     public static void main(String[] arvg) {
         //CMD approach
         Scanner scan = new Scanner(System.in);
-        mainGame m = new mainGame();
+        MainGame m = new MainGame();
         boolean running = false;
         while (true) {
 
