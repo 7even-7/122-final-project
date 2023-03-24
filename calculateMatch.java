@@ -103,24 +103,22 @@ public class calculateMatch {
     }
 
     public int[] getHorizontalMatch(int r, int c, int columns, JButton[][] buttons, Color markedTile) {
-		// Get the left and right matching tiles and calculate the start and end position
-		int left = this.getLeftMatch(r, c, buttons, markedTile);
-		int right = this.getRightMatch(r, c, columns, buttons, markedTile);
-		int startTilePosition = c - left;
-		int endTilePosition = c + right;
-		int score = left + 1 + right;
-		int[] matchResult = {startTilePosition, endTilePosition, score, r};
-		return matchResult;
-	}
+        // Get the left and right matching tiles and calculate the start and end position
+        int left = this.getLeftMatch(r, c, buttons, markedTile);
+        int right = this.getRightMatch(r, c, columns, buttons, markedTile);
+        int startTilePosition = c - left;
+        int endTilePosition = c + right;
+        int score = left + 1 + right;
+        return new int[]{startTilePosition, endTilePosition, score, r};
+    }
 
-	public int[] getVerticalMatch(int r, int c, int rows, JButton[][] buttons, Color markedTile) {
-		// Get the up and down matching tiles and calculate the start and end position
-		int up = this.getUpMatch(r, c, buttons, markedTile);
-		int down = this.getDownMatch(r, c, rows, buttons, markedTile);
-		int startTilePosition = r - up;
-		int endTilePosition = r + down;
-		int score = up + 1 + down;
-		int[] matchResult = {startTilePosition, endTilePosition, score, c};
-		return matchResult;
-	}
+    public int[] getVerticalMatch(int r, int c, int rows, JButton[][] buttons, Color markedTile) {
+        // Get the up and down matching tiles and calculate the start and end position
+        int up = this.getUpMatch(r, c, buttons, markedTile);
+        int down = this.getDownMatch(r, c, rows, buttons, markedTile);
+        int startTilePosition = r - up;
+        int endTilePosition = r + down;
+        int score = up + 1 + down;
+        return new int[]{startTilePosition, endTilePosition, score, c};
+    }
 }

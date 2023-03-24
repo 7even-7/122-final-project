@@ -116,7 +116,6 @@ public class T_Blocks {
     };
 
     private T_Blocks() {
-
     }
 
     public static T_Blocks getInstance() {
@@ -126,6 +125,4 @@ public class T_Blocks {
     public int[][][] getBlocks() {
         return BLOCKS;
     }
-    
-
 }
