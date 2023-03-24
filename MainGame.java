@@ -114,6 +114,7 @@ public class MainGame {
             if (command.equals("EndGame")) {
                 m.updateWinner();
                 m.printWinner();
+                System.exit(0);
             }
         }
     }
