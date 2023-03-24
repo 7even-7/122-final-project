@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class MainGame {
     public Tetris tetris;
-    public BejewlGame bj;
+    public BejeweledGame bj;
     public Winner bjPlayers;
     public Winner tetrisPlayers;
 
@@ -17,7 +17,7 @@ public class MainGame {
             tetris.updateBoard();
 
         } else if (game.equals("B")) {
-            bj = new BejewlGame(playerName);
+            bj = new BejeweledGame(playerName);
         }
     }
 
@@ -28,7 +28,7 @@ public class MainGame {
             }
             if (this.bj != null) {
                 this.bj.dispose();
-                this.bj = new BejewlGame(Name);
+                this.bj = new BejeweledGame(Name);
             } else {
                 this.createGame("B", Name);
             }
@@ -75,10 +75,10 @@ public class MainGame {
         }
     }
 
-    public static void main(String[] arvg) {
+    public static void main(String[] args) {
         //CMD approach
         Scanner scan = new Scanner(System.in);
-        MainGame m = new MainGame();
+        MainGame mainGame = new MainGame();
         boolean running = false;
         while (true) {
 
@@ -89,7 +89,7 @@ public class MainGame {
 
                 System.out.println("Select from the following games: \n1. Tetris -> Enter T\n2. Bejewel -> Enter B");
                 String game = scan.next();
-                m.createGame(game, playerName);
+                mainGame.createGame(game, playerName);
                 System.out.println("Enter NewGame to select a new Game");
                 System.out.println("Enter EndGame to end the Game");
 
@@ -99,21 +99,21 @@ public class MainGame {
             String command = scan.nextLine();
 
             if (command.equals("NewGame")) {
-                m.updateWinner();
+                mainGame.updateWinner();
                 System.out.println("Enter your new player name");
                 String newPlayer = scan.nextLine();
 
                 System.out.println("Select from the following games: \n1. Tetris -> Enter NT\n2. Bejewel -> Enter NB");
                 String newGame = scan.next();
 
-                m.resetGame(newGame, newPlayer);
+                mainGame.resetGame(newGame, newPlayer);
                 System.out.println("Enter NewGame to select a new Game");
                 System.out.println("Enter EndGame to end the Game");
             }
 
             if (command.equals("EndGame")) {
-                m.updateWinner();
-                m.printWinner();
+                mainGame.updateWinner();
+                mainGame.printWinner();
                 System.exit(0);
             }
         }

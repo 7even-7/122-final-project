@@ -6,68 +6,68 @@ interface MatchStrategy {
 }
 
 class UpMatchStrategy implements MatchStrategy {
-    public int getMatch(int r, int c, int rowsOrColumns, JButton[][] buttons, Color markedTile) {
+    public int getMatch(int row, int col, int rowsOrColumns, JButton[][] buttons, Color markedTile) {
         int res = 0;
-        r--;
-        while (0 <= r) {
-            Color currCellColor = buttons[r][c].getBackground();
+        row--;
+        while (0 <= row) {
+            Color currCellColor = buttons[row][col].getBackground();
             if (currCellColor == markedTile) {
                 res++;
             } else {
                 break;
             }
-            r--;
+            row--;
         }
         return res;
     }
 }
 
 class DownMatchStrategy implements MatchStrategy {
-    public int getMatch(int r, int c, int rowsOrColumns, JButton[][] buttons, Color markedTile) {
+    public int getMatch(int row, int col, int rowsOrColumns, JButton[][] buttons, Color markedTile) {
         int res = 0;
-        r++;
-        while (r < rowsOrColumns) {
-            Color currCellColor = buttons[r][c].getBackground();
+        row++;
+        while (row < rowsOrColumns) {
+            Color currCellColor = buttons[row][col].getBackground();
             if (currCellColor == markedTile) {
                 res++;
             } else {
                 break;
             }
-            r++;
+            row++;
         }
         return res;
     }
 }
 
 class LeftMatchStrategy implements MatchStrategy {
-    public int getMatch(int r, int c, int rowsOrColumns, JButton[][] buttons, Color markedTile) {
+    public int getMatch(int row, int col, int rowsOrColumns, JButton[][] buttons, Color markedTile) {
         int res = 0;
-        c--;
-        while (0 <= c) {
-            Color currCellColor = buttons[r][c].getBackground();
+        col--;
+        while (0 <= col) {
+            Color currCellColor = buttons[row][col].getBackground();
             if (currCellColor == markedTile) {
                 res++;
             } else {
                 break;
             }
-            c--;
+            col--;
         }
         return res;
     }
 }
 
 class RightMatchStrategy implements MatchStrategy {
-    public int getMatch(int r, int c, int rowsOrColumns, JButton[][] buttons, Color markedTile) {
+    public int getMatch(int row, int col, int rowsOrColumns, JButton[][] buttons, Color markedTile) {
         int res = 0;
-        c++;
-        while (c < rowsOrColumns) {
-            Color currCellColor = buttons[r][c].getBackground();
+        col++;
+        while (col < rowsOrColumns) {
+            Color currCellColor = buttons[row][col].getBackground();
             if (currCellColor == markedTile) {
                 res++;
             } else {
                 break;
             }
-            c++;
+            col++;
         }
         return res;
     }
@@ -86,39 +86,39 @@ public class calculateMatch {
         rightMatchStrategy = new RightMatchStrategy();
     }
 
-    public int getUpMatch(int r, int c, JButton[][] buttons, Color markedTile) {
-        return upMatchStrategy.getMatch(r, c, buttons.length, buttons, markedTile);
+    public int getUpMatch(int row, int col, JButton[][] buttons, Color markedTile) {
+        return upMatchStrategy.getMatch(row, col, buttons.length, buttons, markedTile);
     }
 
-    public int getDownMatch(int r, int c, int rowLen, JButton[][] buttons, Color markedTile) {
-        return downMatchStrategy.getMatch(r, c, rowLen, buttons, markedTile);
+    public int getDownMatch(int row, int col, int rowLen, JButton[][] buttons, Color markedTile) {
+        return downMatchStrategy.getMatch(row, col, rowLen, buttons, markedTile);
     }
 
-    public int getLeftMatch(int r, int c, JButton[][] buttons, Color markedTile) {
-        return leftMatchStrategy.getMatch(r, c, buttons[0].length, buttons, markedTile);
+    public int getLeftMatch(int row, int col, JButton[][] buttons, Color markedTile) {
+        return leftMatchStrategy.getMatch(row, col, buttons[0].length, buttons, markedTile);
     }
 
-    public int getRightMatch(int r, int c, int colLen, JButton[][] buttons, Color markedTile) {
-        return rightMatchStrategy.getMatch(r, c, colLen, buttons, markedTile);
+    public int getRightMatch(int row, int col, int colLen, JButton[][] buttons, Color markedTile) {
+        return rightMatchStrategy.getMatch(row, col, colLen, buttons, markedTile);
     }
 
-    public int[] getHorizontalMatch(int r, int c, int columns, JButton[][] buttons, Color markedTile) {
+    public int[] getHorizontalMatch(int row, int col, int columns, JButton[][] buttons, Color markedTile) {
         // Get the left and right matching tiles and calculate the start and end position
-        int left = this.getLeftMatch(r, c, buttons, markedTile);
-        int right = this.getRightMatch(r, c, columns, buttons, markedTile);
-        int startTilePosition = c - left;
-        int endTilePosition = c + right;
+        int left = this.getLeftMatch(row, col, buttons, markedTile);
+        int right = this.getRightMatch(row, col, columns, buttons, markedTile);
+        int startTilePosition = col - left;
+        int endTilePosition = col + right;
         int score = left + 1 + right;
-        return new int[]{startTilePosition, endTilePosition, score, r};
+        return new int[]{startTilePosition, endTilePosition, score, row};
     }
 
-    public int[] getVerticalMatch(int r, int c, int rows, JButton[][] buttons, Color markedTile) {
+    public int[] getVerticalMatch(int row, int col, int rows, JButton[][] buttons, Color markedTile) {
         // Get the up and down matching tiles and calculate the start and end position
-        int up = this.getUpMatch(r, c, buttons, markedTile);
-        int down = this.getDownMatch(r, c, rows, buttons, markedTile);
-        int startTilePosition = r - up;
-        int endTilePosition = r + down;
+        int up = this.getUpMatch(row, col, buttons, markedTile);
+        int down = this.getDownMatch(row, col, rows, buttons, markedTile);
+        int startTilePosition = row - up;
+        int endTilePosition = row + down;
         int score = up + 1 + down;
-        return new int[]{startTilePosition, endTilePosition, score, c};
+        return new int[]{startTilePosition, endTilePosition, score, col};
     }
 }

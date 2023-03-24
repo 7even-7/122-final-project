@@ -3,43 +3,43 @@ import java.awt.*;
 
 public class T_Paint {
 
-    public void cleaning(int[][] block, JTextArea[][] text, int[][] data, int m, int n) {
+    public void cleaning(int[][] block, JTextArea[][] text, int[][] data, int blockXCoordinate, int blockYCoordinate) {
         int i = 0;
         while (i < 16) {
             int row = i / 4;
             int col = i % 4;
             if (block[row][col] != 0) {
-                text[m][n].setBackground(Color.WHITE);
+                text[blockXCoordinate][blockYCoordinate].setBackground(Color.WHITE);
             }
-            n++;
+            blockYCoordinate++;
             if (col == 3) {
-                m++;
-                n -= 4;
+                blockXCoordinate++;
+                blockYCoordinate -= 4;
             }
             i++;
         }
     }
 
-    public void drawing(int[][] block, JTextArea[][] text, int m, int n) {
+    public void drawing(int[][] block, JTextArea[][] text, int blockXCoordinate, int blockYCoordinate) {
         for (int i = 0; i < 16; i++) {
             int row = i / 4;
             int col = i % 4;
             if (block[row][col] != 0) {
-                text[m][n].setBackground(Color.ORANGE);
+                text[blockXCoordinate][blockYCoordinate].setBackground(Color.ORANGE);
             }
-            n++;
+            blockYCoordinate++;
             if (i % 4 == 3) {
-                m++;
-                n -= 4;
+                blockXCoordinate++;
+                blockYCoordinate -= 4;
             }
         }
     }
 
-    public boolean checkTurn(int[][] a, int[][] data, int m, int n) {
+    public boolean checkTurn(int[][] nextBlockRotation, int[][] data, int blockXCoordinate, int blockYCoordinate) {
         for (int i = 0; i < 16; i++) {
-            int row = m + i / 4;
-            int col = n + i % 4;
-            if (a[i / 4][i % 4] != 0 && data[row][col] == 1) {
+            int row = blockXCoordinate + i / 4;
+            int col = blockYCoordinate + i % 4;
+            if (nextBlockRotation[i / 4][i % 4] != 0 && data[row][col] == 1) {
                 return false;
             }
         }

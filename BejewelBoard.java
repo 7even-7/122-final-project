@@ -13,28 +13,28 @@ public class BejewelBoard extends Score {
     private ActionListener action;
     private ArrayList<Color> colors;
     private calculateMatch tileMatch;
-    private int r;
-    private int c;
-    private String name;
+    private int rows;
+    private int columns;
+    private String playerName;
 
-    public BejewelBoard(int numOfRow, int numOfCol, ActionListener action, String name) {
-        gameBoard = new JPanel(new GridLayout(numOfRow + 1, numOfCol));
-        buttons = new JButton[numOfRow][numOfCol];
+    public BejewelBoard(int numberOfRows, int numberOfColumns, ActionListener action, String playerName) {
+        gameBoard = new JPanel(new GridLayout(numberOfRows + 1, numberOfColumns));
+        buttons = new JButton[numberOfRows][numberOfColumns];
         tileMatch = new calculateMatch();
-        ColorData c = new ColorData();
-        this.r = numOfRow;
-        this.c = numOfCol;
+        ColorData colorData = new ColorData();
+        this.rows = numberOfRows;
+        this.columns = numberOfColumns;
         this.action = action;
-        this.colors = c.getColors();
+        this.colors = colorData.getColors();
         this.score = 0;
-        this.name = name;
-        this.initBoard(numOfRow, numOfCol);
+        this.playerName = playerName;
+        this.initBoard(numberOfRows, numberOfColumns);
         this.setGameStatus();
         this.ExitActionListener();
     }
 
-    public void initBoard(int r, int c) {
-        this.createTitle(r, c, this.action);
+    public void initBoard(int numberOfRows, int numberOfColumns) {
+        this.createTitle(numberOfRows, numberOfColumns, this.action);
         this.ExitActionListener();
     }
 
@@ -52,24 +52,23 @@ public class BejewelBoard extends Score {
     }
 
     //sets the tile contents
-    public void setTileContent(int r, int c, ActionListener a) {
-        buttons[r][c] = new JButton();
-        buttons[r][c].addActionListener(a);
-        buttons[r][c].setFocusPainted(false);
-        buttons[r][c].setBackground(this.colors.get((int) (Math.random() * 4)));
-        gameBoard.add(buttons[r][c]);
+    public void setTileContent(int row, int col, ActionListener a) {
+        buttons[row][col] = new JButton();
+        buttons[row][col].addActionListener(a);
+        buttons[row][col].setFocusPainted(false);
+        buttons[row][col].setBackground(this.colors.get((int) (Math.random() * 4)));
+        gameBoard.add(buttons[row][col]);
     }
 
     //create empty tile for board status
-    public void setEmptyTile(int r, int c) {
-        buttons[r][c] = new JButton("");
-        gameBoard.add(buttons[r][c]);
+    public void setEmptyTile(int row, int col) {
+        buttons[row][col] = new JButton("");
+        gameBoard.add(buttons[row][col]);
     }
 
     public void setGameStatus() {
-        buttons[8][0].setText("Player: " + this.name);
+        buttons[8][0].setText("Player: " + this.playerName);
         buttons[8][1].setText("Score: " + this.score);
-        //buttons[8][2].setText("Switch Player");
         buttons[8][2].setText("Exit Game");
     }
 
@@ -118,10 +117,10 @@ public class BejewelBoard extends Score {
         buttons[clicks[2]][clicks[3]].setBackground(firstColor);
 
         //first click matchRes
-        int[] res1 = this.tileMatch.getVerticalMatch(clicks[2], clicks[3], this.r - 1, buttons, firstColor);
-        int[] res2 = this.tileMatch.getHorizontalMatch(clicks[2], clicks[3], this.c, buttons, firstColor);
-        int[] res3 = this.tileMatch.getVerticalMatch(clicks[0], clicks[1], this.r - 1, buttons, secondColor);
-        int[] res4 = this.tileMatch.getHorizontalMatch(clicks[0], clicks[1], this.c, buttons, secondColor);
+        int[] res1 = this.tileMatch.getVerticalMatch(clicks[2], clicks[3], this.rows - 1, buttons, firstColor);
+        int[] res2 = this.tileMatch.getHorizontalMatch(clicks[2], clicks[3], this.columns, buttons, firstColor);
+        int[] res3 = this.tileMatch.getVerticalMatch(clicks[0], clicks[1], this.rows - 1, buttons, secondColor);
+        int[] res4 = this.tileMatch.getHorizontalMatch(clicks[0], clicks[1], this.columns, buttons, secondColor);
 
         //run vertical match on first clicked cursor
         this.updateVerticalTiles(res1);

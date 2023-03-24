@@ -18,11 +18,11 @@ public class T_Scoring extends Score {
         observers.remove(observer);
     }
 
-    public void isFullRow(int x, int[][] data, JTextArea[][] text, int length, int score, JLabel game_score) {
+    public void isFullRow(int xCoordinate, int[][] data, JTextArea[][] text, int length, int score, JLabel game_score) {
         int point = 100;
 
-        int checker = x;
-        while (checker < x + 4) {
+        int checker = xCoordinate;
+        while (checker < xCoordinate + 4) {
             int sum = 0;
             for (int i = 1; i <= length; i++) {
                 if (data[checker][i] == 1) {
@@ -59,11 +59,11 @@ public class T_Scoring extends Score {
         } while (i >= 1);
     }
 
-    public void setColor(int[][] data, JTextArea[][] text, int m, int n) {
-        if (data[m][n] == 1) {
-            text[m][n].setBackground(Color.ORANGE);
+    public void setColor(int[][] data, JTextArea[][] text, int blockXCoordinate, int blockYCoordinate) {
+        if (data[blockXCoordinate][blockYCoordinate] == 1) {
+            text[blockXCoordinate][blockYCoordinate].setBackground(Color.ORANGE);
         } else {
-            text[m][n].setBackground(Color.WHITE);
+            text[blockXCoordinate][blockYCoordinate].setBackground(Color.WHITE);
         }
     }
 
