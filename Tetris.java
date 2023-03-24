@@ -11,16 +11,16 @@ import java.util.concurrent.TimeUnit;
 
 public class Tetris extends JFrame implements KeyListener, ActionListener, GameEngine {
     // Instance Variables
-    private static final int t_row = 26;
-    private static final int t_column = 12;
+    private static final int tRow = 26;
+    private static final int tColumn = 12;
     private int[][][] blocks;   // List of possible blocks to spawn
     private int[][] block;      // Current block being dropped
     JTextArea[][] text;
     private int[][] data;
-    private JLabel game_status;
-    private JLabel game_score;
+    private JLabel gameStatus;
+    private JLabel gameScore;
     private boolean isRunning;
-    private int length = t_column - 2;
+    private int length = tColumn - 2;
     private int time = 1000;
 
     // Coordinates
@@ -30,15 +30,15 @@ public class Tetris extends JFrame implements KeyListener, ActionListener, GameE
     private Player p;
     private T_Paint tPaint = new T_Paint();
     private T_Scoring getScore = new T_Scoring();
-    private JPanel explain_Left;
+    private JPanel explainLeft;
 
     // Constructor
     public Tetris(String name) {
         //1 means block, 0 means blank
-        text = new JTextArea[t_row][t_column];      // stores square graphics of game
-        data = new int[t_row][t_column];           // stores which blocks are occupied
+        text = new JTextArea[tRow][tColumn];      // stores square graphics of game
+        data = new int[tRow][tColumn];           // stores which blocks are occupied
         this.p = new Player(name);
-        colorData color = new colorData();
+        ColorData color = new ColorData();
         this.init();
 
         isRunning = true;
@@ -50,13 +50,13 @@ public class Tetris extends JFrame implements KeyListener, ActionListener, GameE
     //Game UI
     @Override
     public void createboard() {
-        JPanel game_main = new JPanel();
-        game_main.setLayout(new GridLayout(t_row, t_column, 1, 1));
+        JPanel gameMain = new JPanel();
+        gameMain.setLayout(new GridLayout(tRow, tColumn, 1, 1));
 
         //initialize the board
         for (int i = 0; i < text.length; i++) {
             for (int j = 0; j < text[i].length; j++) {
-                text[i][j] = new JTextArea(t_row, t_column);
+                text[i][j] = new JTextArea(tRow, tColumn);
                 text[i][j].setBackground(Color.WHITE);
                 text[i][j].addKeyListener(this);
 
@@ -64,11 +64,11 @@ public class Tetris extends JFrame implements KeyListener, ActionListener, GameE
                 drawBoarder(i, j, text, data);
                 //text area cannot be edited
                 text[i][j].setEditable(false);
-                game_main.add(text[i][j]);
+                gameMain.add(text[i][j]);
             }
         }
         this.setLayout(new BorderLayout());
-        this.add(game_main, BorderLayout.CENTER);
+        this.add(gameMain, BorderLayout.CENTER);
     }
 
     @Override
@@ -88,51 +88,51 @@ public class Tetris extends JFrame implements KeyListener, ActionListener, GameE
 
     //Instruction Panel
     public void initExplainPanel() {
-        JLabel space_button;
-        JLabel left_button;
-        JLabel right_button;
-        JLabel up_button;
+        JLabel spaceButton;
+        JLabel leftButton;
+        JLabel rightButton;
+        JLabel upButton;
         JLabel instruction;
-        JLabel space_simple;
+        JLabel spaceSimple;
         JButton endGame;
         //left panel
-        this.explain_Left = new JPanel();
+        this.explainLeft = new JPanel();
 
         //instructions
         instruction = new JLabel("Instructions: ");
-        left_button = new JLabel("Left Arrow: Move Left");
-        right_button = new JLabel("Right Arrow: Move Right");
-        up_button = new JLabel("Up Arrow: Change Direction");
-        space_button = new JLabel("Space: Drop the Block");
-        space_simple = new JLabel(" ");
+        leftButton = new JLabel("Left Arrow: Move Left");
+        rightButton = new JLabel("Right Arrow: Move Right");
+        upButton = new JLabel("Up Arrow: Change Direction");
+        spaceButton = new JLabel("Space: Drop the Block");
+        spaceSimple = new JLabel(" ");
 
         //game status
-        game_status = new JLabel("Game Status: In Game");
+        gameStatus = new JLabel("Game Status: In Game");
 
         JLabel name = new JLabel("Player: " + this.p.getName());
         endGame = new JButton("New Game");
 
         endGame.addActionListener(this);
-        explain_Left.setLayout(new GridLayout(16, 1));
+        explainLeft.setLayout(new GridLayout(16, 1));
         instruction.setForeground(Color.BLACK);
-        left_button.setForeground(Color.BLUE);
-        right_button.setForeground(Color.BLUE);
-        up_button.setForeground(Color.BLUE);
-        space_button.setForeground(Color.BLUE);
-        game_status.setForeground(Color.RED);
+        leftButton.setForeground(Color.BLUE);
+        rightButton.setForeground(Color.BLUE);
+        upButton.setForeground(Color.BLUE);
+        spaceButton.setForeground(Color.BLUE);
+        gameStatus.setForeground(Color.RED);
 
-        explain_Left.add(instruction);
-        explain_Left.add(space_button);
-        explain_Left.add(left_button);
-        explain_Left.add(right_button);
-        explain_Left.add(up_button);
-        explain_Left.add(space_simple);
-        explain_Left.add(space_simple);
-        explain_Left.add(name);
-        explain_Left.add(game_status);
+        explainLeft.add(instruction);
+        explainLeft.add(spaceButton);
+        explainLeft.add(leftButton);
+        explainLeft.add(rightButton);
+        explainLeft.add(upButton);
+        explainLeft.add(spaceSimple);
+        explainLeft.add(spaceSimple);
+        explainLeft.add(name);
+        explainLeft.add(gameStatus);
         this.displayScoreOnboard();
-        explain_Left.add(endGame);
-        this.add(explain_Left, BorderLayout.WEST);
+        explainLeft.add(endGame);
+        this.add(explainLeft, BorderLayout.WEST);
     }
 
     // Window settings
@@ -150,9 +150,9 @@ public class Tetris extends JFrame implements KeyListener, ActionListener, GameE
     public void updateBoard() {
         while (true) {
             //check if game is over
-            if (isRunning == true) {
+            if (isRunning) {
                 try {
-                    game_run();
+                    gameRun();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -166,7 +166,7 @@ public class Tetris extends JFrame implements KeyListener, ActionListener, GameE
 
     public void isGameOver() {
         if (!isRunning) {
-            game_status.setText("Game Status: Game Over");
+            gameStatus.setText("Game Status: Game Over");
         }
     }
 
@@ -180,14 +180,14 @@ public class Tetris extends JFrame implements KeyListener, ActionListener, GameE
     T_Operations operations = new T_Operations();
 
     // runs the game for one block each
-    public void game_run() throws InterruptedException {
+    public void gameRun() throws InterruptedException {
         pickBlock();
-        int length = t_column - 2;
+        int length = tColumn - 2;
         //block drop position
         x = 0;
         y = 5;
 
-        for (int i = 0; i < t_row; i++) {
+        for (int i = 0; i < tRow; i++) {
             // pause execution of the thread for 1 second
             TimeUnit.SECONDS.sleep(1);
             //check if the block can be dropped
@@ -198,7 +198,7 @@ public class Tetris extends JFrame implements KeyListener, ActionListener, GameE
 
                 // Code to remove lines
                 // Detect if row is full
-                getScore.isFullRow(x, data, text, length, score, game_score);
+                getScore.isFullRow(x, data, text, length, score, gameScore);
 
                 //check game over
                 passGameOverLine();
@@ -213,7 +213,7 @@ public class Tetris extends JFrame implements KeyListener, ActionListener, GameE
 
     public void passGameOverLine() {
         for (int j = 1; j <= length; j++) {
-            if (data[t_row - 22][j] == 1 && isRunning) {
+            if (data[tRow - 22][j] == 1 && isRunning) {
                 isRunning = false;
                 break;
             }
@@ -255,18 +255,18 @@ public class Tetris extends JFrame implements KeyListener, ActionListener, GameE
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int current_block;
+        int currentBlock;
         //change direction
         if (e.getKeyCode() == 38) {
             if (!isRunning) {
                 return;
             }
 
-            current_block = getCurrentBlock();
+            currentBlock = getCurrentBlock();
             tPaint.cleaning(block, text, data, x, y);
 
             RotateShape rotateShape = new RotateShape(blocks);
-            block = rotateShape.rotate(current_block, data, x, y, tPaint);
+            block = rotateShape.rotate(currentBlock, data, x, y, tPaint);
             tPaint.drawing(block, text, x, y);
         }
 
@@ -298,7 +298,7 @@ public class Tetris extends JFrame implements KeyListener, ActionListener, GameE
             if (!isRunning) {
                 return;
             }
-            if (y + 3 >= t_column) {
+            if (y + 3 >= tColumn) {
                 return;
             }
             y++;
@@ -306,7 +306,7 @@ public class Tetris extends JFrame implements KeyListener, ActionListener, GameE
             // Check if right is clear and able to move
             for (int i = x; i < x + blocks[0].length; i++) {
                 for (int j = y; j < y + blocks[0].length; j++) {
-                    if (block[i - x][j - y] != 0 && (j < 0 || j >= t_column || data[i][j] == 1)) {
+                    if (block[i - x][j - y] != 0 && (j < 0 || j >= tColumn || data[i][j] == 1)) {
                         y--;
                         return;
                     }
@@ -364,9 +364,9 @@ public class Tetris extends JFrame implements KeyListener, ActionListener, GameE
     public void displayScoreOnboard() {
         // TODO Auto-generated method stub
         //game_score = new JLabel("Game Score: 0");
-        game_score = new JLabel("Game Score: 0");
-        game_score.setForeground(Color.RED);
-        explain_Left.add(game_score);
+        gameScore = new JLabel("Game Score: 0");
+        gameScore.setForeground(Color.RED);
+        explainLeft.add(gameScore);
     }
 
 

@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.awt.*;
 
-public class colorData {
+public class ColorData {
     private ArrayList<Color> colors;
 
-    public colorData() {
+    public ColorData() {
         colors = new ArrayList<Color>();
         colors.add(Color.MAGENTA);
         colors.add(Color.white);

@@ -21,7 +21,7 @@ public class BejewelBoard extends Score {
         gameBoard = new JPanel(new GridLayout(numOfRow + 1, numOfCol));
         buttons = new JButton[numOfRow][numOfCol];
         tileMatch = new calculateMatch();
-        colorData c = new colorData();
+        ColorData c = new ColorData();
         this.r = numOfRow;
         this.c = numOfCol;
         this.action = action;
