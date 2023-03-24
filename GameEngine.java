@@ -1,12 +1,10 @@
 
 public interface GameEngine {
-	abstract public void createCell();
-	abstract public void getCell();
-	abstract public void createboard();
-	abstract boolean checkConnected();
-	abstract int displayScore();
-	abstract void incrementScore(int num);
-	abstract void gameOver();
-	abstract void endGame();
+	abstract void createboard();
+	abstract void init();
+	abstract void isGameOver();
+	abstract void displayScoreOnboard();
+	abstract void setColor();
+	abstract void updateBoard();
 
 }
