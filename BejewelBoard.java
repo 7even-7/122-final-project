@@ -30,12 +30,10 @@ public class BejewelBoard extends Score {
         this.playerName = playerName;
         this.initBoard(numberOfRows, numberOfColumns);
         this.setGameStatus();
-        this.ExitActionListener();
     }
 
     public void initBoard(int numberOfRows, int numberOfColumns) {
         this.createTitle(numberOfRows, numberOfColumns, this.action);
-        this.ExitActionListener();
     }
 
     //creates the tiles in the board
@@ -69,7 +67,6 @@ public class BejewelBoard extends Score {
     public void setGameStatus() {
         buttons[8][0].setText("Player: " + this.playerName);
         buttons[8][1].setText("Score: " + this.score);
-        buttons[8][2].setText("Exit Game");
     }
 
     public JPanel getBoard() {
@@ -133,17 +130,6 @@ public class BejewelBoard extends Score {
     @Override
     public int getScore() {
         return this.score;
-    }
-
-    public void ExitActionListener() {
-        buttons[8][2].addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //your actions
-                System.exit(0);
-            }
-        });
     }
 
     @Override
