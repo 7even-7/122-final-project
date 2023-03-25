@@ -110,7 +110,7 @@ public class Tetris extends JFrame implements KeyListener, ActionListener, GameE
         gameStatus = new JLabel("Game Status: In Game");
 
         JLabel name = new JLabel("Player: " + this.p.getName());
-        endGame = new JButton("New Game");
+        endGame = new JButton("Exit to commandline");
 
         endGame.addActionListener(this);
         explainLeft.setLayout(new GridLayout(16, 1));
