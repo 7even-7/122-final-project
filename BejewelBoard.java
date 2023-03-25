@@ -134,7 +134,6 @@ public class BejewelBoard extends Score {
 
     @Override
     void incrementScore(int num) {
-        this.score += score;
         buttons[8][1].setText("Score: " + Integer.toString(this.score));
         // TODO Auto-generated method stub
         this.score += num;
